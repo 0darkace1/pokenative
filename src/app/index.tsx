@@ -3,16 +3,14 @@ import {
   View,
   Image,
   FlatList,
-  Text,
   ActivityIndicator,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ThemedText } from "@/components/ThemedText";
-import { Colors } from "@/constants/Colors";
 import { useThemeColors } from "@/hooks/useThemeColors";
 import Card from "@/components/Card";
 import PokemonCard from "@/components/pokemon/PokemonCard";
-import { useFetchQuery, useInfiniteFetchQuery } from "@/hooks/useFetchQuery";
+import { useInfiniteFetchQuery } from "@/hooks/useFetchQuery";
 import { getPokemonId } from "@/utils/pokemon";
 
 const HomeScreen = () => {
