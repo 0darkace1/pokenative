@@ -10,9 +10,9 @@ const Card = ({ style, ...rest }: Props) => {
   return (
     <View
       style={[
+        { backgroundColor: colors.grayWhite },
         style,
         styles.cardContainer,
-        { backgroundColor: colors.grayWhite },
       ]}
       {...rest}
     />

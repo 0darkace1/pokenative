@@ -26,14 +26,28 @@ const styles = StyleSheet.create({
     lineHeight: 16,
     fontWeight: "bold",
   },
+  subtitle3: {
+    fontSize: 12,
+    lineHeight: 16,
+    fontWeight: "bold",
+  },
 });
 
 type Props = TextProps & {
   variant?: keyof typeof styles;
   color?: keyof (typeof Colors)["light"];
+  capitalize?: boolean;
+  uppercase?: boolean;
 };
 
-export function ThemedText({ variant, color, style, ...rest }: Props) {
+const ThemedText = ({
+  capitalize,
+  uppercase,
+  variant,
+  color,
+  style,
+  ...rest
+}: Props) => {
   const colors = useThemeColors();
 
   return (
@@ -41,9 +55,13 @@ export function ThemedText({ variant, color, style, ...rest }: Props) {
       style={[
         styles[variant ?? "body3"],
         { color: colors[color ?? "grayDark"] },
+        capitalize && { textTransform: "capitalize" },
+        uppercase && { textTransform: "uppercase" },
         style,
       ]}
       {...rest}
     />
   );
-}
+};
+
+export default ThemedText;

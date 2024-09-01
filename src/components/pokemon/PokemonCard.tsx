@@ -1,8 +1,17 @@
-import { Image, StyleSheet, View, ViewStyle } from "react-native";
-import React from "react";
+import {
+  Image,
+  Pressable,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+  ViewStyle,
+} from "react-native";
+
 import Card from "@/components/Card";
-import { ThemedText } from "../ThemedText";
+import ThemedText from "../ThemedText";
 import { useThemeColors } from "@/hooks/useThemeColors";
+import { Link } from "expo-router";
+import { getPokemonArtWork } from "@/utils/pokemon";
 
 type Props = {
   style?: ViewStyle;
@@ -14,25 +23,29 @@ const PokemonCard = ({ style, id, name }: Props) => {
   const colors = useThemeColors();
 
   return (
-    <Card style={[style, styles.card]}>
-      <ThemedText style={styles.id} variant="caption" color="grayMedium">
-        #{id.toString().padStart(3, "0")}
-      </ThemedText>
+    <Link href={{ pathname: "/pokemon/[id]", params: { id } }} asChild>
+      <TouchableOpacity style={style}>
+        <Card style={[styles.card]}>
+          <ThemedText style={styles.id} variant="caption" color="grayMedium">
+            #{id.toString().padStart(3, "0")}
+          </ThemedText>
 
-      <Image
-        source={{
-          uri: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`,
-        }}
-        width={72}
-        height={72}
-      />
+          <Image
+            source={{
+              uri: getPokemonArtWork(id),
+            }}
+            width={72}
+            height={72}
+          />
 
-      <ThemedText>{name}</ThemedText>
+          <ThemedText capitalize>{name}</ThemedText>
 
-      <View
-        style={[styles.shadow, { backgroundColor: colors.grayBackground }]}
-      />
-    </Card>
+          <View
+            style={[styles.shadow, { backgroundColor: colors.grayLight }]}
+          />
+        </Card>
+      </TouchableOpacity>
+    </Link>
   );
 };
 
@@ -43,6 +56,7 @@ const styles = StyleSheet.create({
     position: "relative",
     alignItems: "center",
     padding: 4,
+    backgroundColor: "#F1F1F1",
   },
   id: {
     alignSelf: "flex-end",
